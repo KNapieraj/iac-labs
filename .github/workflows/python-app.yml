@@ -13,10 +13,32 @@ permissions:
   contents: read
 
 jobs:
-  build:
 
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        working-directory: ./example-app
+
+    steps:
+    - uses: actions/checkout@v3
     
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.3
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-root
+        
+        
+
+  lint:
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./example-app
@@ -40,13 +62,80 @@ jobs:
       run: |
         poetry run task lint
         
+        
+
+  foramtter:
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        working-directory: ./example-app
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.3
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-root
+        
     - name: Formatter with poetry
       run: |
         poetry run task formatter
 
+
+  security:
+    runs-on: ubuntu-latest    
+    defaults:
+      run:
+        working-directory: ./example-app
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.3
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-root
+
     - name: Security with poetry
       run: |
         poetry run task security
+
+
+  unittest:
+    runs-on: ubuntu-latest   
+    defaults:
+      run:
+        working-directory: ./example-app
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+        
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.3.3
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-root
         
     - name: Test with pytest
       run: |
