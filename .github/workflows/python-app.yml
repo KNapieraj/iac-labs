@@ -15,7 +15,9 @@ permissions:
 jobs:
 
   build:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    concurrency:
+      group: con
     defaults:
       run:
         working-directory: ./example-app
@@ -39,6 +41,8 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    concurrency:
+      group: groupanaliysis
     defaults:
       run:
         working-directory: ./example-app
@@ -65,7 +69,9 @@ jobs:
         
 
   foramtter:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    concurrency:
+      group: groupanaliysis
     defaults:
       run:
         working-directory: ./example-app
@@ -91,7 +97,9 @@ jobs:
 
 
   security:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    concurrency:
+      group: groupanaliysis
     defaults:
       run:
         working-directory: ./example-app
@@ -117,7 +125,9 @@ jobs:
 
 
   unittest:
-    runs-on: ubuntu-latest   
+    runs-on: ubuntu-latest
+    concurrency:
+      group: groupanaliysis
     defaults:
       run:
         working-directory: ./example-app
