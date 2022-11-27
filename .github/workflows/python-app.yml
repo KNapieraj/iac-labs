@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     concurrency:
-      group: con
+      group: build
     defaults:
       run:
         working-directory: ./example-app
@@ -43,6 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: groupanaliysis
+    needs: build
     defaults:
       run:
         working-directory: ./example-app
@@ -72,6 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: groupanaliysis
+    needs: build
     defaults:
       run:
         working-directory: ./example-app
@@ -100,6 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: groupanaliysis
+    needs: build
     defaults:
       run:
         working-directory: ./example-app
@@ -127,7 +130,8 @@ jobs:
   unittest:
     runs-on: ubuntu-latest
     concurrency:
-      group: groupanaliysis
+      group: test
+    needs: [lint, foramtter, security]
     defaults:
       run:
         working-directory: ./example-app
